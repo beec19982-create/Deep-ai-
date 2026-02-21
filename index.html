@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Super App</title>
+</head>
+<body>
+    <h1>AI Super App</h1>
+    <textarea id="prompt" rows="4" cols="50" placeholder="Ask AI anything..."></textarea><br><br>
+    <button onclick="sendPrompt()">Submit</button>
+    <p id="response"></p>
+
+    <script>
+        async function sendPrompt() {
+            const prompt = document.getElementById("prompt").value;
+            const res = await fetch("/api/ask", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({prompt})
+            });
+            const data = await res.json();
+            document.getElementById("response").innerText = data.response;
+        }
+    </script>
+</body>
+</html>
